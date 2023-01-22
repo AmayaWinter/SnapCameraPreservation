@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model lenses {
+    unlockable_id BigInt @id
+    snapcode_url String? @db.VarChar(300)
+    user_display_name String? @db.VarChar(200)
+    lens_name String? @db.VarChar(200)
+    lens_status String? @db.VarChar(200)
+    deeplink String?  @db.VarChar(200)
+    icon_url String? @db.VarChar(150)
+    thumbnail_media_url String? @db.VarChar(300)
+    standard_media_url String? @db.VarChar(500)
+    obfuscated_user_slug String? @db.VarChar(300)
+    image_sequence Json?
+    thumbnail_media_poster_url String? @db.VarChar(300)
+    standard_media_poster_url String? @db.VarChar(300)
+}
+
+model unlocks {
+  lens_id BigInt @id
+  lens_url String? @db.VarChar(300)
+  signature String? @db.VarChar(300)
+  hint_id String? @db.VarChar(200)
+  additional_hint_ids Json?
+  mirrored Int @default(0)
+}
